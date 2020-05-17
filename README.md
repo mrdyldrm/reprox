@@ -1,2 +1,2 @@
 # Reprox
-React easy store management library
+React easy state management library
