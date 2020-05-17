@@ -1,0 +1,37 @@
+{
+  "name": "@mrdyldrm/reprox",
+  "version": "1.0.0",
+  "private": true,
+  "main": "src/reprox.js",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^16.13.1"
+  },
+  "devDependencies": {
+    "react": "^16.13.1"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "description": "React easy store management library",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mrdyldrm/reprox.git"
+  },
+  "keywords": [
+    "react",
+    "store",
+    "management",
+    "state",
+    "usestate",
+    "stateless"
+  ],
+  "author": "Murat Yıldırım",
+  "bugs": {
+    "url": "https://github.com/mrdyldrm/reprox/issues"
+  },
+  "homepage": "https://github.com/mrdyldrm/reprox#readme",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
