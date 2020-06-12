@@ -1,4 +1,5 @@
 # Reprox
+<<<<<<< HEAD
 React easy state management tiny library
 
 ## Defination
@@ -225,3 +226,6 @@ Dizilerde ekleme,çıkartma gibi değişiklikleri yakalayabilmek için Reprox Ja
 
 ## Watch Object Property Changes
 
+=======
+React easy state management library
+>>>>>>> d07ee201970eb672dc50ccc1f5bec849c0cdb917
