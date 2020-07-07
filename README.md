@@ -232,4 +232,91 @@ Reprox has expanded the Javascript Array prototype to capture changes such as ad
 
 ## Watch Object Property Changes
 
-Reprox nesnelerin özelliklerinde yapılan değişikleri izleminiz sağlar.  
+Reprox can detect changes of object's properties. This requires your object to be defined under Reprox.
+
+```javascript
+Reprox.MyStore.name_.watch((object,propName,args)=>{
+    console.log($`The value of the {propName} property was changed from {args.old} to {args.new}.`);
+});
+
+Reprox.MyStore.name = "my name"; //after this line the specified message will be written to the console
+```
+In the code example above, the changes made in the `name` property of the `MyStore` object are captured and the specified function is running. The watch function can be accessed by adding `_` to the end of the properties of the objects.
+Multiple watch functions can be added to the same property of the object.
+
+#####Parameters:
+* **object**: Object being watched. In the example above, it corresponds to the object `MyStore`.
+* **propName**: Property name of object being watched.
+* **args**: It is the object that keeps the detail of the change made. The example above includes the old and new properties. `args.old` maintains the previous value of the `MyStore.name` property and the new value of `args.new`. The `args` parameter changes while watching the array.
+
+####Array Property Watch
+In order to detect changes in the array-type properties of objects, it is necessary to detect push and pop calls of array. Array extensions are available for this in Reprox. According to this, you can use `array.add` or `array.addItems` while adding elements to the array and `array.remove` or `array.clear` functions. You can access the full functions list in the **Array Functions** section above.
+```javascript
+var list = [];
+Reprox.FirstStore.list = list;
+Reprox.FirstStore.list_.watch((object,propName,args)=>{
+    console.log("log for FirstStore.list");
+});
+
+Reprox.SecondStore.numbers = list;
+
+Reprox.SecondStore.numbers_.watch((object,propName,args)=>{
+    console.log("log for SecondStore.numbers");
+});
+
+Reprox.MyStore.list.push(1);
+//nothing happen
+
+Reprox.MyStore.list.pop();
+//nothing happen
+
+Reprox.MyStore.list.add(1);
+//console> log for FirstStore.list
+//console> log for SecondStore.numbers
+
+Reprox.SecondStore.numbers.addItems(2,3);
+//console> log for FirstStore.list
+//console> log for SecondStore.numbers
+
+Reprox.MyStore.list.remove(1);
+//console> log for FirstStore.list
+//console> log for SecondStore.numbers
+
+Reprox.SecondStore.numbers.removeAt(1);
+//console> log for FirstStore.list
+//console> log for SecondStore.numbers
+
+Reprox.MyStore.list.clear();
+//console> log for FirstStore.list
+//console> log for SecondStore.numbers
+
+```
+
+In the example above, you can see how the array watch feature works. As can be seen in the example, since `MyStore.list` and `SecondStore.numbers` are set with the same array, both watch functions will work when adding or subtracting this array via any feature.
+
+**Properties of args parameter in array watch function**
+* **added**: Added items of array
+* **removed**: Removed items of array
+* **type**: Type of process. add, remove, clear etc.
+
+
+---
+
+## Objects Binding
+You can bind properties of objects with Reprox bind function. When the value of one of the binded objects changes, the value of the other will change automatically.
+```javascript
+Reprox.FirstObject.name = "first";
+Reprox.SecondObject.title = "second";
+
+Reprox.SecondObject.title_.bind(Reprox.SecondObject,"title");
+console.log(Reprox.SecondObject.title);
+//console> first
+Reprox.FirstObject.name = "new name";
+console.log(Reprox.SecondObject.title);
+//console> new name
+
+Reprox.SecondObject.title = "new title";
+console.log(Reprox.FirstObject.name);
+//console> new title
+
+```
