@@ -244,12 +244,12 @@ Reprox.MyStore.name = "my name"; //after this line the specified message will be
 In the code example above, the changes made in the `name` property of the `MyStore` object are captured and the specified function is running. The watch function can be accessed by adding `_` to the end of the properties of the objects.
 Multiple watch functions can be added to the same property of the object.
 
-#####Parameters:
+###### Parameters:
 * **object**: Object being watched. In the example above, it corresponds to the object `MyStore`.
 * **propName**: Property name of object being watched.
 * **args**: It is the object that keeps the detail of the change made. The example above includes the old and new properties. `args.old` maintains the previous value of the `MyStore.name` property and the new value of `args.new`. The `args` parameter changes while watching the array.
 
-####Array Property Watch
+#### Array Property Watch
 In order to detect changes in the array-type properties of objects, it is necessary to detect push and pop calls of array. Array extensions are available for this in Reprox. According to this, you can use `array.add` or `array.addItems` while adding elements to the array and `array.remove` or `array.clear` functions. You can access the full functions list in the **Array Functions** section above.
 ```javascript
 var list = [];
@@ -320,7 +320,7 @@ console.log(Reprox.FirstObject.name);
 //console> new title
 
 ```
-######Bind Options
+###### Bind Options
 * **oneway**: If true only binded object's property value changes. The binder object will not change white binded object. Default is false.
 * **convert**: You can set convert parameter with function for manuplate binder value before set dhe binded object value.
 * **convertBack**: Like convert parameter, you can set this parameter with function for manuplate binded object value before set binder object value.
