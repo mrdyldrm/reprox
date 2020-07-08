@@ -308,7 +308,7 @@ You can bind properties of objects with Reprox bind function. When the value of 
 Reprox.FirstObject.name = "first";
 Reprox.SecondObject.title = "second";
 
-Reprox.SecondObject.title_.bind(Reprox.SecondObject,"title");
+Reprox.SecondObject.title_.bind(Reprox.SecondObject,"title",{/*options*/});
 console.log(Reprox.SecondObject.title);
 //console> first
 Reprox.FirstObject.name = "new name";
@@ -319,4 +319,44 @@ Reprox.SecondObject.title = "new title";
 console.log(Reprox.FirstObject.name);
 //console> new title
 
+```
+######Bind Options
+* **oneway**: If true only binded object's property value changes. The binder object will not change white binded object. Default is false.
+* **convert**: You can set convert parameter with function for manuplate binder value before set dhe binded object value.
+* **convertBack**: Like convert parameter, you can set this parameter with function for manuplate binded object value before set binder object value.
+
+```javascript
+Reprox.FirstObject.name = "first";
+Reprox.SecondObject.title = "second";
+
+Reprox.SecondObject.title_.bind(Reprox.SecondObject,"title",{oneway:true});
+console.log(Reprox.SecondObject.title);
+//console> first
+
+Reprox.SecondObject.title = "new title";
+console.log(Reprox.FirstObject.name);
+//console> first
+
+Reprox.FirstObject.name = "new name";
+console.log(Reprox.SecondObject.title);
+//console> new name
+
+
+
+Reprox.FirstObject.smallnumber = 10;
+Reprox.SecondObject.bignumber = 10;
+Reprox.SecondObject.bignumber_.bind(Reprox.SecondObject,"title",{
+        convert(val)=> val+5,
+        convertBack(val)=>val-5
+    });
+console.log(Reprox.SecondObject.bignumber);
+//console> 15
+
+Reprox.FirstObject.smallnumber = 80;
+console.log(Reprox.SecondObject.bignumber);
+//console> 85
+
+Reprox.SecondObject.bignumber = 40;
+console.log(Reprox.SecondObject.smallnumber);
+//console> 35
 ```
