@@ -126,7 +126,7 @@ const fireWatch = function (object, prop, args, watchItem) {
     watchItem = watchItem || watchs.find(e => e.object === object && e.prop === prop);
     if (watchItem) watchItem.events.forEach(e => e(object, prop, args));
 
-    var parentItem = parents.find(e => e.object === (object || watchItem?.object));
+    var parentItem = parents.find(e => e.object === (object || (watchItem ? watchItem.object : null)));
     if (parentItem) parentItem.proxies.forEach(e => fireWatch(e, undefined, {
         type: "subchange"
     }));
@@ -298,7 +298,9 @@ const useGet = function (target, prop, proxy) {
                 value: target[prop],
                 onChange(event, value) {
                     let val = !event.target ? event : value != undefined ? value : event.target.value;
-                    if (event.target?.attributes?.datatype?.value === "number") val = parseFloat(val.replace(/,/g, ""));
+                    if (event.target && event.target.attributes && event.target.attributes.datatype &&
+                         event.target.attributes.datatype.value === "number") 
+                        val = parseFloat(val.replace(/,/g, ""));
                     proxy[prop] = val;
                 }
             },

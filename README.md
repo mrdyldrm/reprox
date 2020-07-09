@@ -28,11 +28,11 @@ It is a small library for React state and store management. It uses the **React 
 ---
 
 ## Installation
-`npm install reprox`
+`npm install @core-io/reprox`
 
 or  
 
-`yarn add reprox`
+`yarn add @core-io/reprox`
 
 ---
 
